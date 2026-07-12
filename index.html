@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHERRY HACKER TOOLKIT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            border: 1px solid #334155;
+            transition: max-width 0.4s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .dashboard-mode {
+            max-width: 950px !important;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #38bdf8;
+            font-size: 26px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            font-size: 15px;
+            color: white;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #38bdf8;
+        }
+
+        .btn {
+            width: 100%;
+            background: #0284c7;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #0369a1;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .switch-text a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Dashboard Styles */
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .logout-btn {
+            background: #dc2626;
+            padding: 8px 14px;
+            font-size: 14px;
+            width: auto;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        .admin-btn {
+            background: #a855f7;
+            padding: 8px 14px;
+            font-size: 14px;
+            width: auto;
+        }
+
+        .admin-btn:hover {
+            background: #9333ea;
+        }
+
+        .section-title {
+            margin: 20px 0 15px 0;
+            font-size: 18px;
+            color: #38bdf8;
+            border-left: 4px solid #38bdf8;
+            padding-left: 8px;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: #38bdf8;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.1);
+        }
+
+        .card h4 {
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: #f1f5f9;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .card a {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .card a:hover {
+            background: #0ea5e9;
+        }
+
+        /* Owner Verification Login Box Inside Dashboard */
+        .owner-auth-box {
+            background: #1e1b4b;
+            border: 2px dashed #a855f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            max-width: 400px;
+        }
+
+        /* Dynamic Admin Section Controls */
+        .admin-panel-box {
+            background: #0f172a;
+            border: 1px dashed #a855f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        /* INTRUSION SYSTEM STYLES */
+        .intrusion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(220, 38, 38, 0.25);
+            z-index: 99;
+            pointer-events: none;
+            animation: flashOverlay 0.5s infinite alternate;
+            display: none;
+        }
+
+        .alert-icon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 98;
+            pointer-events: none;
+            display: none;
+        }
+
+        .floating-alert-icon {
+            position: absolute;
+            color: #dc2626;
+            font-size: 40px;
+            font-weight: bold;
+            animation: spinIcon 2s infinite linear;
+        }
+
+        /* Glowing Custom Popup */
+        .glowing-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #111827;
+            border: 3px solid #dc2626;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #dc2626, inset 0 0 15px #dc2626;
+            z-index: 100;
+            text-align: center;
+            display: none;
+            width: 90%;
+            max-width: 450px;
+        }
+
+        .glowing-text {
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px #ff0000, 0 0 15px #ff0000;
+            margin-bottom: 20px;
+            animation: textPulse 1s infinite alternate;
+        }
+
+        /* Keyframes Animations */
+        @keyframes flashOverlay {
+            0% { background: rgba(220, 38, 38, 0.05); }
+            100% { background: rgba(220, 38, 38, 0.4); }
+        }
+
+        @keyframes textPulse {
+            0% { transform: scale(0.98); opacity: 0.8; }
+            100% { transform: scale(1.02); opacity: 1; }
+        }
+
+        @keyframes spinIcon {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Intrusion Visual Elements -->
+<div class="intrusion-overlay" id="intrusionOverlay"></div>
+<div class="alert-icon-container" id="alertIconContainer"></div>
+
+<!-- Glowing Alert Box -->
+<div class="glowing-popup" id="glowingPopup">
+    <div class="glowing-text">aleart some one trying to enter owner section</div>
+    <button class="btn" style="background: #dc2626;" onclick="closeAlarmSystem()">DISMISS SYSTEM ALERT</button>
+</div>
+
+<div class="container" id="mainContainer">
+    
+    <!-- SIGN IN FORM -->
+    <div id="signinForm">
+        <h2>CHERRY HACKER TOOLKIT</h2>
+        <p class="subtitle">Log in to access your secured environment</p>
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="loginUser" placeholder="Enter username">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="loginPass" placeholder="Enter password">
+        </div>
+        <button class="btn" onclick="handleLogin()">Sign In</button>
+        <p class="switch-text">New here? <a href="#" onclick="toggleForms(true)">Create an account</a></p>
+    </div>
+
+    <!-- SIGN UP FORM -->
+    <div id="signupForm" class="hidden">
+        <h2>Create Access</h2>
+        <p class="subtitle">Sign up to unlock the customized web panel</p>
+        <div class="input-group">
+            <label>Choose Username</label>
+            <input type="text" id="regUser" placeholder="e.g., cherry_user">
+        </div>
+        <div class="input-group">
+            <label>Choose Password</label>
+            <input type="password" id="regPass" placeholder="Min 6 characters">
+        </div>
+        <button class="btn" onclick="handleRegister()">Sign Up</button>
+        <p class="switch-text">Already have an account? <a href="#" onclick="toggleForms(false)">Sign In</a></p>
+    </div>
+
+    <!-- PROTECTED DASHBOARD -->
+    <div id="dashboard" class="hidden">
+        <div class="dash-header">
+            <h3>System Terminal: <span id="usernameDisplay" style="color:#38bdf8;">User</span> <span id="roleBadge" style="font-size:12px; padding:2px 6px; background:#475569; border-radius:4px; margin-left:5px;">User</span></h3>
+            <div class="action-btns">
+                <button class="btn admin-btn" id="adminPanelBtn" onclick="toggleOwnerAuthGate()">Owner Panel</button>
+                <button class="btn logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- NEW: SECURE GATEWAY FOR OWNER CREDENTIALS -->
+        <div id="ownerAuthGate" class="owner-auth-box hidden">
+            <h4 style="color: #a855f7; margin-bottom: 12px; font-size: 15px;">🔒 Verification Required</h4>
+            <div class="input-group" style="margin-bottom: 10px;">
+                <input type="text" id="gateUser" placeholder="Owner Username" style="padding: 8px 12px; font-size: 14px;">
+            </div>
+            <div class="input-group" style="margin-bottom: 12px;">
+                <input type="password" id="gatePass" placeholder="Owner Password" style="padding: 8px 12px; font-size: 14px;">
+            </div>
+            <button class="btn" style="background: #a855f7; padding: 8px; font-size: 14px;" onclick="verifyOwnerGateCredentials()">Verify & Unlock</button>
+        </div>
+
+        <!-- HIDDEN OWNER TOOLS ADDITION BLOCK -->
+        <div id="ownerControls" class="admin-panel-box hidden">
+            <h3 style="color:#a855f7; margin-bottom:15px; font-size:16px;">Add New Deployment Tool Link</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="newToolName" placeholder="Tool Name" style="flex:1; min-width:150px;">
+                <input type="text" id="newToolDesc" placeholder="Brief Description" style="flex:2; min-width:200px;">
+                <input type="text" id="newToolLink" placeholder="https://..." style="flex:2; min-width:200px;">
+                <button class="btn" style="background:#a855f7; width:auto; padding:0 20px;" onclick="addNewToolItem()">Add Item</button>
+            </div>
+        </div>
+
+        <div class="section-title">CHERRY HACKER TOOLKIT PANEL</div>
+        <div class="grid" id="toolsGrid">
+            <!-- Dynamic and static list elements go here -->
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Hardcoded master credentials fixed completely
+    const OWNER_USER = "cherry6163";
+    const OWNER_PASS = "@Iqra77055";
+
+    let audioContext = null;
+    let alarmInterval = null;
+
+    // Base default tools configuration array
+    const defaultTools = [
+        { name: "Cherry SIM Tool", desc: "Access your deployed SIM database management tool platform.", link: "https://cherry-sim.vercel.app/" },
+        { name: "Cherry WP Ban Tool", desc: "External web dashboard control panel framework deployment.", link: "https://cherry-whatsappban1.vercel.app/" },
+        { name: "Cherry Unban Tool", desc: "Recovery tracking infrastructure interface configuration tool.", link: "https://cheryy-unbantool-l5cm.vercel.app/" }
+    ];
+
+    function toggleForms(showSignup) {
+        if(showSignup) {
+            document.getElementById('signinForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+        } else {
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('signinForm').classList.remove('hidden');
+        }
+    }
+
+    function handleRegister() {
+        const user = document.getElementById('regUser').value.trim();
+        const pass = document.getElementById('regPass').value.trim();
+
+        if(!user || !pass) {
+            alert("Meharbani karke dono fields fill karein.");
+            return;
+        }
+        if(user.toLowerCase() === OWNER_USER.toLowerCase()) {
+            alert("System error: This username is highly reserved!");
+            return;
+        }
+        if(pass.length < 6) {
+            alert("Password kam az kam 6 character ka hona chahiye.");
+            return;
+        }
+        if(localStorage.getItem(user)) {
+            alert("Yeh username pehle se register hai!");
+            return;
+        }
+
+        localStorage.setItem(user, pass);
+        alert("Account kamyabi se ban gaya hai! Ab Sign In karein.");
+        toggleForms(false);
+    }
+
+    function handleLogin() {
+        const user = document.getElementById('loginUser').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+
+        if (user === OWNER_USER && pass === OWNER_PASS) {
+            // Logged in directly using master account
+            launchDashboard(user, "OWNER");
+        } else {
+            // Normal user login pathway matching
+            const savedPassword = localStorage.getItem(user);
+            if(savedPassword && savedPassword === pass) {
+                launchDashboard(user, "USER");
+            } else {
+                alert("Ghalat Username ya Password!");
+            }
+        }
+    }
+
+    function launchDashboard(username, roleName) {
+        document.getElementById('signinForm').classList.add('hidden');
+        document.getElementById('signupForm').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+        
+        document.getElementById('mainContainer').classList.add('dashboard-mode');
+        document.getElementById('usernameDisplay').textContent = username;
+        
+        const badge = document.getElementById('roleBadge');
+        badge.textContent = roleName;
+        badge.style.background = (roleName === "OWNER") ? "#a855f7" : "#475569";
+
+        // Pre-reset sub panel visibility states
+        document.getElementById('ownerAuthGate').classList.add('hidden');
+        document.getElementById('ownerControls').classList.add('hidden');
+
+        renderToolsGrid();
+    }
+
+    function renderToolsGrid() {
+        const grid = document.getElementById('toolsGrid');
+        grid.innerHTML = "";
+
+        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        let totalItems = [...defaultTools, ...customTools];
+
+        totalItems.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h4>${item.name}</h4>
+                <p>${item.desc}</p>
+                <a href="${item.link}" target="_blank">Launch Tool</a>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Opens or closes the secure gateway prompt panel
+    function toggleOwnerAuthGate() {
+        // Hide the tools panel if it was open
+        document.getElementById('ownerControls').classList.add('hidden');
+        
+        const gate = document.getElementById('ownerAuthGate');
+        if(gate.classList.contains('hidden')) {
+            gate.classList.remove('hidden');
+            document.getElementById('gateUser').value = "";
+            document.getElementById('gatePass').value = "";
+        } else {
+            gate.classList.add('hidden');
+        }
+    }
+
+    // NEW FUNCTION: Verifies absolute owner credentials inside the dashboard
+    function verifyOwnerGateCredentials() {
+        const inputUser = document.getElementById('gateUser').value.trim();
+        const inputPass = document.getElementById('gatePass').value.trim();
+
+        if (inputUser === OWNER_USER && inputPass === OWNER_PASS) {
+            // Success: Credentials matched perfectly. Unlock tools addition block.
+            document.getElementById('ownerAuthGate').classList.add('hidden');
+            document.getElementById('ownerControls').classList.remove('hidden');
+            alert("Access Granted! Owner Section Unlocked.");
+        } else {
+            // Failure: Wrong input triggered. Lock everything and execute intrusion system.
+            document.getElementById('ownerAuthGate').classList.add('hidden');
+            triggerAlarmSystem();
+        }
+    }
+
+    function addNewToolItem() {
+        const name = document.getElementById('newToolName').value.trim();
+        const desc = document.getElementById('newToolDesc').value.trim();
+        const link = document.getElementById('newToolLink').value.trim();
+
+        if(!name || !desc || !link) {
+            alert("All dynamic fields are highly mandatory!");
+            return;
+        }
+
+        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        customTools.push({ name, desc, link });
+        localStorage.setItem('cherry_custom_tools', JSON.stringify(customTools));
+
+        document.getElementById('newToolName').value = "";
+        document.getElementById('newToolDesc').value = "";
+        document.getElementById('newToolLink').value = "";
+
+        renderToolsGrid();
+        alert("New system module deployed successfully!");
+    }
+
+    // WEB AUDIO API - ALARM SIREN SYNTHESIZER
+    function playSirenSound() {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        
+        const osc = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        osc.type = "sawtooth"; 
+        osc.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        osc.start();
+        
+        let up = true;
+        alarmInterval = setInterval(() => {
+            if (up) {
+                osc.frequency.setValueAtTime(850, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                up = false;
+            } else {
+                osc.frequency.setValueAtTime(550, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                up = true;
+            }
+        }, 350);
+
+        window.activeOscillator = osc;
+    }
+
+    function triggerAlarmSystem() {
+        document.getElementById('glowingPopup').style.display = "block";
+        document.getElementById('intrusionOverlay').style.display = "block";
+        
+        const container = document.getElementById('alertIconContainer');
+        container.style.display = "block";
+        container.innerHTML = "";
+        
+        for (let i = 0; i < 20; i++) {
+            const icon = document.createElement('div');
+            icon.className = 'floating-alert-icon';
+            icon.textContent = "⚠";
+            icon.style.left = Math.random() * 95 + "vw";
+            icon.style.top = Math.random() * 95 + "vh";
+            icon.style.fontSize = (Math.random() * 30 + 30) + "px";
+            container.appendChild(icon);
+        }
+
+        try {
+            playSirenSound();
+        } catch(e) { console.log("Audio contexts blocked."); }
+    }
+
+    function closeAlarmSystem() {
+        document.getElementById('glowingPopup').style.display = "none";
+        document.getElementById('intrusionOverlay').style.display = "none";
+        document.getElementById('alertIconContainer').style.display = "none";
+
+        if (alarmInterval) clearInterval(alarmInterval);
+        if (window.activeOscillator) {
+            try { window.activeOscillator.stop(); } catch(e){}
+        }
+    }
+
+    function handleLogout() {
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('ownerControls').classList.add('hidden');
+        document.getElementById('ownerAuthGate').classList.add('hidden');
+        document.getElementById('signinForm').classList.remove('hidden');
+        document.getElementById('mainContainer').classList.remove('dashboard-mode');
+        
+        document.getElementById('loginUser').value = '';
+        document.getElementById('loginPass').value = '';
+    }
+</script>
+
+</body>
+</html>
