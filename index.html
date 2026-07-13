@@ -34,7 +34,7 @@
             border: 1px solid #334155;
             transition: max-width 0.4s ease;
             position: relative;
-            z-index: 10;
+ z-index: 10;
         }
 
         .dashboard-mode {
@@ -322,7 +322,7 @@
 
 <!-- Glowing Alert Box -->
 <div class="glowing-popup" id="glowingPopup">
-    <div class="glowing-text">aleart some one trying to enter owner section</div>
+    <div class="glowing-text">alert some one trying to enter owner section</div>
     <button class="btn" style="background: #dc2626;" onclick="closeAlarmSystem()">DISMISS SYSTEM ALERT</button>
 </div>
 
@@ -330,7 +330,7 @@
     
     <!-- SIGN IN FORM -->
     <div id="signinForm">
-        <h2>CHERRY HACKER TOOLKIT</h2>
+        <h2>WELCOME TO CHERRY DARK HACKING UNIVERSE</h2>
         <p class="subtitle">Log in to access your secured environment</p>
         <div class="input-group">
             <label>Username</label>
@@ -341,23 +341,6 @@
             <input type="password" id="loginPass" placeholder="Enter password">
         </div>
         <button class="btn" onclick="handleLogin()">Sign In</button>
-        <p class="switch-text">New here? <a href="#" onclick="toggleForms(true)">Create an account</a></p>
-    </div>
-
-    <!-- SIGN UP FORM -->
-    <div id="signupForm" class="hidden">
-        <h2>Create Access</h2>
-        <p class="subtitle">Sign up to unlock the customized web panel</p>
-        <div class="input-group">
-            <label>Choose Username</label>
-            <input type="text" id="regUser" placeholder="e.g., cherry_user">
-        </div>
-        <div class="input-group">
-            <label>Choose Password</label>
-            <input type="password" id="regPass" placeholder="Min 6 characters">
-        </div>
-        <button class="btn" onclick="handleRegister()">Sign Up</button>
-        <p class="switch-text">Already have an account? <a href="#" onclick="toggleForms(false)">Sign In</a></p>
     </div>
 
     <!-- PROTECTED DASHBOARD -->
@@ -370,7 +353,7 @@
             </div>
         </div>
 
-        <!-- NEW: SECURE GATEWAY FOR OWNER CREDENTIALS -->
+        <!-- SECURE GATEWAY FOR OWNER CREDENTIALS -->
         <div id="ownerAuthGate" class="owner-auth-box hidden">
             <h4 style="color: #a855f7; margin-bottom: 12px; font-size: 15px;">🔒 Verification Required</h4>
             <div class="input-group" style="margin-bottom: 10px;">
@@ -413,44 +396,9 @@
     const defaultTools = [
         { name: "Cherry SIM Tool", desc: "Access your deployed SIM database management tool platform.", link: "https://cherry-sim.vercel.app/" },
         { name: "Cherry WP Ban Tool", desc: "External web dashboard control panel framework deployment.", link: "https://cherry-whatsappban1.vercel.app/" },
-        { name: "Cherry Unban Tool", desc: "Recovery tracking infrastructure interface configuration tool.", link: "https://cheryy-unbantool-l5cm.vercel.app/" }
+        { name: "Cherry Unban Tool", desc: "Recovery tracking infrastructure interface configuration tool.", link: "https://cheryy-unbantool-l5cm.vercel.app/" },
+        { name: "Cherry Code Inspector", desc: "Advanced code inspection and structure analysis platform.", link: "https://cherry-codeinspector.vercel.app" }
     ];
-
-    function toggleForms(showSignup) {
-        if(showSignup) {
-            document.getElementById('signinForm').classList.add('hidden');
-            document.getElementById('signupForm').classList.remove('hidden');
-        } else {
-            document.getElementById('signupForm').classList.add('hidden');
-            document.getElementById('signinForm').classList.remove('hidden');
-        }
-    }
-
-    function handleRegister() {
-        const user = document.getElementById('regUser').value.trim();
-        const pass = document.getElementById('regPass').value.trim();
-
-        if(!user || !pass) {
-            alert("Meharbani karke dono fields fill karein.");
-            return;
-        }
-        if(user.toLowerCase() === OWNER_USER.toLowerCase()) {
-            alert("System error: This username is highly reserved!");
-            return;
-        }
-        if(pass.length < 6) {
-            alert("Password kam az kam 6 character ka hona chahiye.");
-            return;
-        }
-        if(localStorage.getItem(user)) {
-            alert("Yeh username pehle se register hai!");
-            return;
-        }
-
-        localStorage.setItem(user, pass);
-        alert("Account kamyabi se ban gaya hai! Ab Sign In karein.");
-        toggleForms(false);
-    }
 
     function handleLogin() {
         const user = document.getElementById('loginUser').value.trim();
@@ -472,7 +420,6 @@
 
     function launchDashboard(username, roleName) {
         document.getElementById('signinForm').classList.add('hidden');
-        document.getElementById('signupForm').classList.add('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
         
         document.getElementById('mainContainer').classList.add('dashboard-mode');
@@ -487,6 +434,14 @@
         document.getElementById('ownerControls').classList.add('hidden');
 
         renderToolsGrid();
+    }
+
+    function handleLogout() {
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('signinForm').classList.remove('hidden');
+        document.getElementById('mainContainer').classList.remove('dashboard-mode');
+        document.getElementById('loginUser').value = "";
+        document.getElementById('loginPass').value = "";
     }
 
     function renderToolsGrid() {
@@ -523,7 +478,7 @@
         }
     }
 
-    // NEW FUNCTION: Verifies absolute owner credentials inside the dashboard
+    // Verifies absolute owner credentials inside the dashboard
     function verifyOwnerGateCredentials() {
         const inputUser = document.getElementById('gateUser').value.trim();
         const inputPass = document.getElementById('gatePass').value.trim();
@@ -596,48 +551,40 @@
     function triggerAlarmSystem() {
         document.getElementById('glowingPopup').style.display = "block";
         document.getElementById('intrusionOverlay').style.display = "block";
+        document.getElementById('alertIconContainer').style.display = "block";
         
+        // Spawn random alert elements over the screen
         const container = document.getElementById('alertIconContainer');
-        container.style.display = "block";
         container.innerHTML = "";
-        
-        for (let i = 0; i < 20; i++) {
+        for(let i=0; i<15; i++) {
             const icon = document.createElement('div');
             icon.className = 'floating-alert-icon';
-            icon.textContent = "⚠";
-            icon.style.left = Math.random() * 95 + "vw";
-            icon.style.top = Math.random() * 95 + "vh";
-            icon.style.fontSize = (Math.random() * 30 + 30) + "px";
+            icon.textContent = "⚠️";
+            icon.style.left = Math.random() * 90 + "vw";
+            icon.style.top = Math.random() * 90 + "vh";
+            icon.style.animationDelay = Math.random() * 2 + "s";
             container.appendChild(icon);
         }
-
+        
         try {
             playSirenSound();
-        } catch(e) { console.log("Audio contexts blocked."); }
+        } catch(e) {
+            console.log("Audio feedback pending interaction.");
+        }
     }
 
     function closeAlarmSystem() {
         document.getElementById('glowingPopup').style.display = "none";
         document.getElementById('intrusionOverlay').style.display = "none";
         document.getElementById('alertIconContainer').style.display = "none";
-
-        if (alarmInterval) clearInterval(alarmInterval);
-        if (window.activeOscillator) {
-            try { window.activeOscillator.stop(); } catch(e){}
+        
+        if(alarmInterval) clearInterval(alarmInterval);
+        if(window.activeOscillator) {
+            try {
+                window.activeOscillator.stop();
+            } catch(e){}
         }
     }
-
-    function handleLogout() {
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('ownerControls').classList.add('hidden');
-        document.getElementById('ownerAuthGate').classList.add('hidden');
-        document.getElementById('signinForm').classList.remove('hidden');
-        document.getElementById('mainContainer').classList.remove('dashboard-mode');
-        
-        document.getElementById('loginUser').value = '';
-        document.getElementById('loginPass').value = '';
-    }
 </script>
-
 </body>
 </html>
