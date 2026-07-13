@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #ffffff; 
-            color: #0f172a;
+            background-color: #020617; /* Deep Charcoal Black */
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,151 +22,108 @@
             padding: 20px;
             overflow-x: hidden;
             position: relative;
+            background-image: radial-gradient(circle at center, #0b1e3a 0%, #020617 100%);
         }
 
-        /* Matrix Canvas Background for Hacking Vibe */
-        #matrixCanvas {
+        /* HARD & SECURE LOCK SCREEN */
+        #pinLockScreen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 1;
-            pointer-events: none;
+            background: #020617;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at center, #081a36 0%, #010409 100%);
+        }
+
+        .lock-container {
+            width: 100%;
+            max-width: 380px;
+            background: #0b1329;
+            border: 2px solid #38bdf8; /* Hard Sky Blue */
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            animation: bootUp 0.6s ease-out;
+        }
+
+        .lock-container h2 {
+            color: #38bdf8;
+            font-size: 22px;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+        }
+
+        .lock-subtitle {
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .pin-input {
+            width: 100%;
+            padding: 15px;
+            background: #020617;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 10px;
+            border-radius: 4px;
+            outline: none;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
         /* MAIN DASHBOARD CONTAINER */
         .container {
             width: 100%;
             max-width: 1000px;
-            background: rgba(255, 255, 255, 0.96); 
+            background: #070f21; /* Hard Cyber Black Background */
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(56, 189, 248, 0.2);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.15);
+            border: 1px solid #1e293b;
             position: relative;
             z-index: 10;
             animation: fadeInContainer 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ==================== ROTATING EARTH & SATELLITE ANIMATION ==================== */
-        .space-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 15px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 400px;
-        }
-
-        /* Rotating Globe */
-        .earth-globe {
-            font-size: 50px;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: rotateEarth 6s linear infinite;
-            z-index: 5;
-            user-select: none;
-        }
-
-        /* Satellite Orbit Path */
-        .satellite-orbit {
-            position: absolute;
-            width: 110px;
-            height: 40px;
-            border: 1px dashed rgba(2, 132, 199, 0.4);
-            border-radius: 50%;
-            transform: rotateX(70deg) rotateY(-15deg);
-            transform-style: preserve-3d;
-            animation: orbitRotate 4s linear infinite;
-            z-index: 6;
-        }
-
-        /* The Satellite Object */
-        .satellite {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 14px;
-            height: 14px;
-            font-size: 12px;
-            transform: translate(-50%, -50%);
-            animation: maintainUpright 4s linear infinite;
-        }
-
-        /* Earth Rotation Effect */
-        @keyframes rotateEarth {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        /* Orbit Path Rotation */
-        @keyframes orbitRotate {
-            0% { transform: rotateX(75deg) rotateY(-15deg) rotateZ(0deg); }
-            100% { transform: rotateX(75deg) rotateY(-15deg) rotateZ(360deg); }
-        }
-
-        /* Keeps Satellite Emoji Facing the Screen Naturally */
-        @keyframes maintainUpright {
-            0% { transform: translate(-50%, -50%) rotateZ(0deg) rotateX(-75deg); }
-            100% { transform: translate(-50%, -50%) rotateZ(-360deg) rotateX(-75deg); }
-        }
-        /* ============================================================================== */
-
         h1.main-title {
-            margin-bottom: 15px;
-            color: #0284c7; 
+            margin-bottom: 10px;
+            color: #38bdf8; /* Hard Sky Blue Neon */
             font-size: 28px;
             text-align: center;
             letter-spacing: 2px;
-            font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* CONTACT TOGGLE BUTTON */
-        .dev-toggle-btn {
-            background: #0f172a;
-            color: #38bdf8;
-            border: 1px solid #38bdf8;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            margin: 0 auto 20px auto;
-            transition: all 0.3s ease;
-        }
-
-        .dev-toggle-btn:hover {
-            background: #38bdf8;
-            color: #020617;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
         }
 
         /* OWNER DETAILS SECTION */
         .owner-details-box {
-            background: #f8fafc;
-            border: 2px dashed #f472b6;
+            background: #0b1528;
+            border: 1px solid #38bdf8;
             padding: 18px;
-            border-radius: 10px;
+            border-radius: 8px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.15);
-            animation: slideDown 0.4s ease-out;
+            box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.1);
         }
 
         .owner-title {
-            color: #ec4899;
+            color: #38bdf8;
             font-size: 14px;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .owner-grid {
@@ -177,17 +134,15 @@
 
         .owner-item {
             font-size: 13px;
-            color: #475569;
-            background: #ffffff;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            border: 1px solid rgba(244, 114, 182, 0.2);
+            color: #94a3b8;
+            background: #020617;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #f472b6; /* Pink border touch */
         }
 
         .owner-item span {
-            color: #0f172a;
+            color: #f8fafc;
             font-weight: bold;
         }
 
@@ -201,24 +156,24 @@
             margin-bottom: 6px;
             font-weight: 600;
             font-size: 13px;
-            color: #0284c7;
+            color: #38bdf8;
         }
 
         input.admin-input {
             width: 100%;
             padding: 12px 14px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: #020617;
+            border: 1px solid #1e293b;
             border-radius: 6px;
             font-size: 14px;
-            color: #0f172a;
+            color: white;
             outline: none;
             transition: all 0.3s;
         }
 
         input.admin-input:focus {
             border-color: #38bdf8;
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
         }
 
         .btn {
@@ -236,7 +191,7 @@
 
         .btn:hover {
             background: #0ea5e9;
-            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
         }
 
         .hidden {
@@ -245,39 +200,39 @@
 
         /* DASHBOARD LAYOUT */
         .dash-header {
-            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1e293b;
             padding-bottom: 15px;
             margin-bottom: 25px;
         }
 
         .admin-btn {
-            background: #ffffff;
-            padding: 8px 16px;
+            background: #0f172a;
+            padding: 8px 14px;
             font-size: 13px;
             width: auto;
-            border: 1px solid #f472b6;
-            color: #f472b6;
-            display: block;
-            margin: 0 auto;
-            border-radius: 6px;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
         }
 
         .admin-btn:hover {
-            background: #f472b6;
-            color: #ffffff;
+            background: #38bdf8;
+            color: #020617;
         }
 
         .section-title {
             margin: 20px 0 15px 0;
             font-size: 16px;
-            color: #0284c7;
-            border-left: 4px solid #0284c7;
+            color: #38bdf8;
+            border-left: 4px solid #38bdf8;
             padding-left: 8px;
             font-weight: bold;
             letter-spacing: 1px;
         }
 
-        /* SOFT WHITE TOOLS CARDS */
+        /* SOFT WHITE TOOLS CARDS WITH GLOWING PINK BORDER */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -286,9 +241,9 @@
         }
 
         .card {
-            background: #ffffff; 
-            border: 2px solid #f472b6; 
-            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.2); 
+            background: rgba(255, 255, 255, 0.95); /* Soft White Feel Box */
+            border: 2px solid #f472b6; /* Soft Neon Pink */
+            box-shadow: 0 0 12px rgba(244, 114, 182, 0.3); /* Pink Glowing Effect */
             padding: 22px;
             border-radius: 12px;
             text-align: center;
@@ -299,19 +254,20 @@
 
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 0 25px rgba(244, 114, 182, 0.6); 
+            box-shadow: 0 0 25px rgba(244, 114, 182, 0.7); /* Hard Pink Glow on Hover */
+            background: #ffffff;
         }
 
         .card h4 {
             margin-bottom: 8px;
             font-size: 19px;
-            color: #0f172a; 
+            color: #0f172a; /* Dark Text inside White Box */
             font-weight: 800;
         }
 
         .card p {
             font-size: 13px;
-            color: #475569; 
+            color: #475569; /* Dark Soft Slate Description */
             margin-bottom: 18px;
             line-height: 1.5;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -319,7 +275,7 @@
 
         .card a {
             display: inline-block;
-            background: #0f172a; 
+            background: #020617; /* High contrast Dark Sky Blue Link Button */
             color: #38bdf8;
             border: 1px solid #38bdf8;
             padding: 8px 20px;
@@ -338,17 +294,17 @@
 
         /* SUB-PANELS */
         .owner-auth-box {
-            background: #f8fafc;
+            background: #0f172a;
             border: 2px dashed #f472b6;
             padding: 20px;
             border-radius: 8px;
-            margin: 15px auto;
+            margin-bottom: 25px;
             max-width: 400px;
             animation: slideDown 0.3s ease-out;
         }
 
         .admin-panel-box {
-            background: #ffffff;
+            background: #020617;
             border: 1px dashed #38bdf8;
             padding: 20px;
             border-radius: 8px;
@@ -356,17 +312,49 @@
             animation: slideDown 0.3s ease-out;
         }
 
-        /* POPUPS & ALARMS */
+        /* INTRUSION SYSTEM STYLES */
+        .intrusion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(220, 38, 38, 0.25);
+            z-index: 99;
+            pointer-events: none;
+            animation: flashOverlay 0.5s infinite alternate;
+            display: none;
+        }
+
+        .alert-icon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 98;
+            pointer-events: none;
+            display: none;
+        }
+
+        .floating-alert-icon {
+            position: absolute;
+            color: #dc2626;
+            font-size: 40px;
+            font-weight: bold;
+            animation: spinIcon 2s infinite linear;
+        }
+
         .glowing-popup {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #ffffff;
+            background: #020617;
             border: 3px solid #ff0055;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
+            box-shadow: 0 0 30px #ff0055, inset 0 0 15px #ff0055;
             z-index: 100;
             text-align: center;
             display: none;
@@ -379,30 +367,63 @@
             font-size: 20px;
             font-weight: bold;
             text-transform: uppercase;
+            text-shadow: 0 0 8px #ff0055;
             margin-bottom: 20px;
+            animation: textPulse 1s infinite alternate;
         }
 
         /* ANIMATIONS */
+        @keyframes bootUp {
+            from { opacity: 0; transform: scale(0.9); filter: blur(5px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
         @keyframes fadeInContainer {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes scaleInCard {
-            from { opacity: 0; transform: scale(0.92); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: scale(0.92) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-15px); display: none; }
-            to { opacity: 1; transform: translateY(0); display: block; }
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes flashOverlay {
+            0% { background: rgba(220, 38, 38, 0.05); }
+            100% { background: rgba(220, 38, 38, 0.35); }
+        }
+
+        @keyframes textPulse {
+            0% { transform: scale(0.98); }
+            100% { transform: scale(1.02); }
+        }
+
+        @keyframes spinIcon {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body onclick="playBeepSound()">
+<body>
 
-<!-- Matrix Code Rain Canvas -->
-<canvas id="matrixCanvas"></canvas>
+<!-- PIN LOCK OVERLAY SCREEN -->
+<div id="pinLockScreen">
+    <div class="lock-container">
+        <h2>SECURITY TERMINAL</h2>
+        <div class="lock-subtitle">Access Restricted</div>
+        <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="6" autofocus oninput="checkPinCode()">
+        <button class="btn" style="background:#0284c7;" onclick="checkPinCode(true)">UNLOCK PLATFORM</button>
+    </div>
+</div>
+
+<!-- Intrusion Visual Elements -->
+<div class="intrusion-overlay" id="intrusionOverlay"></div>
+<div class="alert-icon-container" id="alertIconContainer"></div>
 
 <!-- Glowing Alert Box -->
 <div class="glowing-popup" id="glowingPopup">
@@ -410,40 +431,29 @@
     <button class="btn" style="background: #ff0055;" onclick="closeAlarmSystem()">DISMISS SYSTEM ALERT</button>
 </div>
 
-<div class="container" id="mainContainer" onclick="event.stopPropagation();">
+<div class="container hidden" id="mainContainer">
     
     <div id="dashboard">
         <div class="dash-header">
-            
-            <!-- ROTATING EARTH WITH SATELLITE AREA -->
-            <div class="space-container">
-                <div class="earth-globe">🌎</div>
-                <div class="satellite-orbit">
-                    <div class="satellite">🛰️</div>
-                </div>
-            </div>
-
             <h1 class="main-title">CHERRY HACKING UNIVERSE</h1>
-            
-            <!-- TOGGLE DEVELOPER BUTTON -->
-            <button class="dev-toggle-btn" onclick="toggleDeveloperInfo()">👤 View Developer Contact Info</button>
-
-            <!-- DEVELOPER DETAILS COMPONENT -->
-            <div class="owner-details-box hidden" id="developerDetails">
-                <div class="owner-title">⚡ SYSTEM DEVELOPER DOSSIER</div>
-                <div class="owner-grid">
-                    <div class="owner-item">🎵 TikTok: <span>@cherry_77055</span></div>
-                    <div class="owner-item">📸 Instagram: <span>@HAIDER_77055</span></div>
-                    <div class="owner-item">📧 Gmail: <span>xxcheary@gmail.com</span></div>
-                </div>
+            <div class="action-btns">
+                <button class="btn admin-btn" id="adminPanelBtn" onclick="toggleOwnerAuthGate()">Owner Panel</button>
             </div>
+        </div>
 
-            <button class="btn admin-btn" id="adminPanelBtn" onclick="toggleOwnerAuthGate()">Owner Panel</button>
+        <!-- NEWLY ADDED OWNER DETAILS COMPONENT -->
+        <div class="owner-details-box">
+            <div class="owner-title">⚡ SYSTEM DEVELOPER DOSSIER</div>
+            <div class="owner-grid">
+                <div class="owner-item">🎵 TikTok: <span>@cherry_77055</span></div>
+                <div class="owner-item">📸 Instagram: <span>@HAIDER_77055</span></div>
+                <div class="owner-item">📧 Gmail: <span>xxcheary@gmail.com</span></div>
+            </div>
         </div>
 
         <!-- SECURE GATEWAY FOR OWNER CREDENTIALS -->
         <div id="ownerAuthGate" class="owner-auth-box hidden">
-            <h4 style="color: #f472b6; margin-bottom: 12px; font-size: 14px; text-align: center;">🔒 Verification Required</h4>
+            <h4 style="color: #f472b6; margin-bottom: 12px; font-size: 14px;">🔒 Verification Required</h4>
             <div class="input-group" style="margin-bottom: 10px;">
                 <input type="text" id="gateUser" class="admin-input" placeholder="Owner Username">
             </div>
@@ -455,12 +465,12 @@
 
         <!-- HIDDEN OWNER TOOLS ADDITION BLOCK -->
         <div id="ownerControls" class="admin-panel-box hidden">
-            <h3 style="color:#0284c7; margin-bottom:15px; font-size:15px;">Add New Deployment Tool Link</h3>
+            <h3 style="color:#38bdf8; margin-bottom:15px; font-size:15px;">Add New Deployment Tool Link</h3>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <input type="text" id="newToolName" class="admin-input" placeholder="Tool Name" style="flex:1; min-width:150px;">
                 <input type="text" id="newToolDesc" class="admin-input" placeholder="Brief Description" style="flex:2; min-width:200px;">
                 <input type="text" id="newToolLink" class="admin-input" placeholder="https://..." style="flex:2; min-width:200px;">
-                <button class="btn" style="background:#0284c7; color:white; width:auto; padding:0 20px;" onclick="addNewToolItem()">Add Item</button>
+                <button class="btn" style="background:#38bdf8; color:#020617; width:auto; padding:0 20px;" onclick="addNewToolItem()">Add Item</button>
             </div>
         </div>
 
@@ -473,12 +483,15 @@
 </div>
 
 <script>
+    // System Fixed Master Credentials
+    const FIXED_PIN = "804";
     const OWNER_USER = "cherry6163";
     const OWNER_PASS = "@Iqra77055";
 
     let audioContext = null;
+    let alarmInterval = null;
 
-    // Fixed default list: Ab ye hamesha screen par dikhenge hi dikhenge!
+    // Default configuration base deployment links
     const defaultTools = [
         { name: "Cherry SIM Tool", desc: "Access your deployed SIM database management tool platform.", link: "https://cherry-sim.vercel.app/" },
         { name: "Cherry WP Ban Tool", desc: "External web dashboard control panel framework deployment.", link: "https://cherry-whatsappban1.vercel.app/" },
@@ -486,85 +499,46 @@
         { name: "Cherry Code Inspector", desc: "Advanced code inspection and structure analysis platform.", link: "https://cherry-codeinspector.vercel.app" }
     ];
 
+    // Page Load hote hi voice triggering activate hogi
     window.addEventListener('DOMContentLoaded', () => {
-        startMatrixAnimation();
-        renderToolsGrid();
+        // Trigger voice on first user tap/interaction to prevent browser block policy
+        document.body.addEventListener('click', initVoiceCommand, { once: true });
     });
 
-    function playBeepSound() {
+    function initVoiceCommand() {
         try {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            const osc = audioContext.createOscillator();
-            const gain = audioContext.createGain();
-            
-            osc.type = "sine";
-            osc.frequency.setValueAtTime(600, audioContext.currentTime); 
-            gain.gain.setValueAtTime(0.08, audioContext.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.08);
-            
-            osc.connect(gain);
-            gain.connect(audioContext.destination);
-            osc.start();
-            osc.stop(audioContext.currentTime + 0.08);
-        } catch(e) {}
-    }
-
-    function toggleDeveloperInfo() {
-        const devSection = document.getElementById('developerDetails');
-        devSection.classList.toggle('hidden');
-    }
-
-    function startMatrixAnimation() {
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-
-        const rainDrops = [];
-        for (let x = 0; x < columns; x++) {
-            rainDrops[x] = 1;
+            const speech = new SpeechSynthesisUtterance("Enter the password for access");
+            speech.lang = 'en-US';
+            speech.rate = 0.9.5;
+            speech.pitch = 0.8; // Cyber robotic feel voice
+            window.speechSynthesis.speak(speech);
+        } catch (e) {
+            console.log("Voice system speech block exception caught.");
         }
+    }
 
-        function draw() {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = 'rgba(2, 132, 199, 0.15)'; 
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
+    // PIN validation functionality
+    function checkPinCode(forced = false) {
+        const inputVal = document.getElementById('pinInput').value;
+        
+        if (inputVal === FIXED_PIN) {
+            // Unlock dashboard
+            document.getElementById('pinLockScreen').style.display = "none";
+            document.getElementById('mainContainer').classList.remove('hidden');
+            renderToolsGrid();
+        } else if (forced || inputVal.length >= FIXED_PIN.length) {
+            if(inputVal !== FIXED_PIN){
+                alert("ACCESS DENIED: Invalid System PIN!");
+                document.getElementById('pinInput').value = "";
             }
         }
-        setInterval(draw, 30);
     }
 
-    // Force rendering directly from baseline arrays to avoid cache override errors
     function renderToolsGrid() {
         const grid = document.getElementById('toolsGrid');
         grid.innerHTML = "";
-        
-        let customTools = [];
-        try {
-            customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
-        } catch(e) {
-            customTools = [];
-        }
-        
-        // Merging ensures default tools are never missed or wiped out
+
+        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
         let totalItems = [...defaultTools, ...customTools];
 
         totalItems.forEach((item, index) => {
@@ -583,7 +557,13 @@
     function toggleOwnerAuthGate() {
         document.getElementById('ownerControls').classList.add('hidden');
         const gate = document.getElementById('ownerAuthGate');
-        gate.classList.toggle('hidden');
+        if(gate.classList.contains('hidden')) {
+            gate.classList.remove('hidden');
+            document.getElementById('gateUser').value = "";
+            document.getElementById('gatePass').value = "";
+        } else {
+            gate.classList.add('hidden');
+        }
     }
 
     function verifyOwnerGateCredentials() {
@@ -602,4 +582,79 @@
     function addNewToolItem() {
         const name = document.getElementById('newToolName').value.trim();
         const desc = document.getElementById('newToolDesc').value.trim();
-  
+        const link = document.getElementById('newToolLink').value.trim();
+
+        if(!name || !desc || !link) {
+            alert("All structural fields are completely mandatory!");
+            return;
+        }
+
+        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        customTools.push({ name, desc, link });
+        localStorage.setItem('cherry_custom_tools', JSON.stringify(customTools));
+
+        document.getElementById('newToolName').value = "";
+        document.getElementById('newToolDesc').value = "";
+        document.getElementById('newToolLink').value = "";
+
+        renderToolsGrid();
+    }
+
+    // AUDIO SIREN SYNTHESIZER
+    function playSirenSound() {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const osc = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        osc.type = "sawtooth"; 
+        osc.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        osc.start();
+        
+        let up = true;
+        alarmInterval = setInterval(() => {
+            if (up) {
+                osc.frequency.setValueAtTime(900, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                up = false;
+            } else {
+                osc.frequency.setValueAtTime(600, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                up = true;
+            }
+        }, 300);
+        window.activeOscillator = osc;
+    }
+
+    function triggerAlarmSystem() {
+        document.getElementById('glowingPopup').style.display = "block";
+        document.getElementById('intrusionOverlay').style.display = "block";
+        document.getElementById('alertIconContainer').style.display = "block";
+        
+        const container = document.getElementById('alertIconContainer');
+        container.innerHTML = "";
+        for(let i=0; i<15; i++) {
+            const icon = document.createElement('div');
+            icon.className = 'floating-alert-icon';
+            icon.textContent = "⚠️";
+            icon.style.left = Math.random() * 90 + "vw";
+            icon.style.top = Math.random() * 90 + "vh";
+            icon.style.animationDelay = Math.random() * 2 + "s";
+            container.appendChild(icon);
+        }
+        try { playSirenSound(); } catch(e){}
+    }
+
+    function closeAlarmSystem() {
+        document.getElementById('glowingPopup').style.display = "none";
+        document.getElementById('intrusionOverlay').style.display = "none";
+        document.getElementById('alertIconContainer').style.display = "none";
+        if(alarmInterval) clearInterval(alarmInterval);
+        if(window.activeOscillator) {
+            try { window.activeOscillator.stop(); } catch(e){}
+        }
+    }
+</script>
+</body>
+</html>
