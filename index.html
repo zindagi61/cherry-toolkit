@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background-color: #0a0505; /* Super Dark Red/Black */
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,38 +22,30 @@
             padding: 20px;
             overflow-x: hidden;
             position: relative;
+            background-image: radial-gradient(circle at center, #2d0505 0%, #0a0505 100%);
         }
 
         .container {
             width: 100%;
-            max-width: 450px;
-            background: #1e293b;
+            max-width: 950px; /* Direct dashboard size */
+            background: #180808; /* Dark Cherry Tint */
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-            border: 1px solid #334155;
-            transition: max-width 0.4s ease;
+            box-shadow: 0 0 30px rgba(220, 38, 38, 0.15);
+            border: 1px solid #450a0a;
             position: relative;
- z-index: 10;
-        }
-
-        .dashboard-mode {
-            max-width: 950px !important;
+            z-index: 10;
+            animation: fadeInContainer 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         h2 {
             margin-bottom: 10px;
-            color: #38bdf8;
+            color: #ef4444; /* Dark Red Neon */
             font-size: 26px;
             text-align: center;
             letter-spacing: 1px;
-        }
-
-        p.subtitle {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 14px;
-            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+            animation: textGlow 2s infinite alternate;
         }
 
         .input-group {
@@ -65,28 +57,29 @@
             margin-bottom: 6px;
             font-weight: 600;
             font-size: 14px;
-            color: #94a3b8;
+            color: #f87171;
         }
 
         input {
             width: 100%;
             padding: 12px 14px;
-            background: #0f172a;
-            border: 1px solid #475569;
+            background: #0a0505;
+            border: 1px solid #7f1d1d;
             border-radius: 6px;
             font-size: 15px;
             color: white;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.3s ease;
         }
 
         input:focus {
-            border-color: #38bdf8;
+            border-color: #ef4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
         }
 
         .btn {
             width: 100%;
-            background: #0284c7;
+            background: #991b1b;
             color: white;
             padding: 12px;
             border: none;
@@ -94,24 +87,13 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn:hover {
-            background: #0369a1;
-        }
-
-        .switch-text {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #94a3b8;
-        }
-
-        .switch-text a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: bold;
+            background: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(185, 28, 28, 0.5);
         }
 
         .hidden {
@@ -123,7 +105,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #334155;
+            border-bottom: 2px solid #450a0a;
             padding-bottom: 15px;
             margin-bottom: 25px;
             gap: 10px;
@@ -134,35 +116,27 @@
             gap: 10px;
         }
 
-        .logout-btn {
-            background: #dc2626;
-            padding: 8px 14px;
-            font-size: 14px;
-            width: auto;
-        }
-
-        .logout-btn:hover {
-            background: #b91c1c;
-        }
-
         .admin-btn {
-            background: #a855f7;
+            background: #7c2d12;
             padding: 8px 14px;
             font-size: 14px;
             width: auto;
+            border: 1px solid #ea580c;
         }
 
         .admin-btn:hover {
-            background: #9333ea;
+            background: #9a3412;
+            box-shadow: 0 0 15px rgba(234, 88, 12, 0.4);
         }
 
         .section-title {
             margin: 20px 0 15px 0;
             font-size: 18px;
-            color: #38bdf8;
-            border-left: 4px solid #38bdf8;
+            color: #ef4444;
+            border-left: 4px solid #ef4444;
             padding-left: 8px;
             font-weight: bold;
+            text-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
         }
 
         .grid {
@@ -173,66 +147,71 @@
         }
 
         .card {
-            background: #0f172a;
-            border: 1px solid #334155;
+            background: #0a0505;
+            border: 1px solid #450a0a;
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: scaleInCard 0.5s forwards ease;
         }
 
         .card:hover {
-            transform: translateY(-3px);
-            border-color: #38bdf8;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.1);
+            transform: translateY(-5px);
+            border-color: #ef4444;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.25);
         }
 
         .card h4 {
             margin-bottom: 8px;
             font-size: 18px;
-            color: #f1f5f9;
+            color: #fecaca;
         }
 
         .card p {
             font-size: 13px;
-            color: #94a3b8;
+            color: #f87171;
             margin-bottom: 15px;
             line-height: 1.4;
         }
 
         .card a {
             display: inline-block;
-            background: #38bdf8;
-            color: #0f172a;
+            background: #ef4444;
+            color: #0a0505;
             padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
             font-size: 14px;
             font-weight: bold;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
         }
 
         .card a:hover {
-            background: #0ea5e9;
+            background: #f87171;
+            box-shadow: 0 0 10px rgba(248, 113, 113, 0.5);
         }
 
         /* Owner Verification Login Box Inside Dashboard */
         .owner-auth-box {
-            background: #1e1b4b;
-            border: 2px dashed #a855f7;
+            background: #270505;
+            border: 2px dashed #ef4444;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 25px;
             max-width: 400px;
+            animation: slideDown 0.3s ease-out;
         }
 
         /* Dynamic Admin Section Controls */
         .admin-panel-box {
-            background: #0f172a;
-            border: 1px dashed #a855f7;
+            background: #0a0505;
+            border: 1px dashed #ef4444;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 25px;
+            animation: slideDown 0.3s ease-out;
         }
 
         /* INTRUSION SYSTEM STYLES */
@@ -274,7 +253,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #111827;
+            background: #0a0505;
             border: 3px solid #dc2626;
             padding: 40px;
             border-radius: 12px;
@@ -298,6 +277,26 @@
         }
 
         /* Keyframes Animations */
+        @keyframes fadeInContainer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleInCard {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+            100% { text-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
+        }
+
         @keyframes flashOverlay {
             0% { background: rgba(220, 38, 38, 0.05); }
             100% { background: rgba(220, 38, 38, 0.4); }
@@ -322,57 +321,41 @@
 
 <!-- Glowing Alert Box -->
 <div class="glowing-popup" id="glowingPopup">
-    <div class="glowing-text">alert some one trying to enter owner section</div>
+    <div class="glowing-text">alert someone trying to enter owner section</div>
     <button class="btn" style="background: #dc2626;" onclick="closeAlarmSystem()">DISMISS SYSTEM ALERT</button>
 </div>
 
 <div class="container" id="mainContainer">
     
-    <!-- SIGN IN FORM -->
-    <div id="signinForm">
-        <h2>WELCOME TO CHERRY DARK HACKING UNIVERSE</h2>
-        <p class="subtitle">Log in to access your secured environment</p>
-        <div class="input-group">
-            <label>Username</label>
-            <input type="text" id="loginUser" placeholder="Enter username">
-        </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="loginPass" placeholder="Enter password">
-        </div>
-        <button class="btn" onclick="handleLogin()">Sign In</button>
-    </div>
-
-    <!-- PROTECTED DASHBOARD -->
-    <div id="dashboard" class="hidden">
+    <!-- PROTECTED DASHBOARD DIRECT ACCESS -->
+    <div id="dashboard">
         <div class="dash-header">
-            <h3>System Terminal: <span id="usernameDisplay" style="color:#38bdf8;">User</span> <span id="roleBadge" style="font-size:12px; padding:2px 6px; background:#475569; border-radius:4px; margin-left:5px;">User</span></h3>
+            <h2>CHERRY DARK HACKING UNIVERSE</h2>
             <div class="action-btns">
                 <button class="btn admin-btn" id="adminPanelBtn" onclick="toggleOwnerAuthGate()">Owner Panel</button>
-                <button class="btn logout-btn" onclick="handleLogout()">Logout</button>
             </div>
         </div>
 
         <!-- SECURE GATEWAY FOR OWNER CREDENTIALS -->
         <div id="ownerAuthGate" class="owner-auth-box hidden">
-            <h4 style="color: #a855f7; margin-bottom: 12px; font-size: 15px;">🔒 Verification Required</h4>
+            <h4 style="color: #ef4444; margin-bottom: 12px; font-size: 15px;">🔒 Verification Required</h4>
             <div class="input-group" style="margin-bottom: 10px;">
                 <input type="text" id="gateUser" placeholder="Owner Username" style="padding: 8px 12px; font-size: 14px;">
             </div>
             <div class="input-group" style="margin-bottom: 12px;">
                 <input type="password" id="gatePass" placeholder="Owner Password" style="padding: 8px 12px; font-size: 14px;">
             </div>
-            <button class="btn" style="background: #a855f7; padding: 8px; font-size: 14px;" onclick="verifyOwnerGateCredentials()">Verify & Unlock</button>
+            <button class="btn" style="background: #b91c1c; padding: 8px; font-size: 14px;" onclick="verifyOwnerGateCredentials()">Verify & Unlock</button>
         </div>
 
         <!-- HIDDEN OWNER TOOLS ADDITION BLOCK -->
         <div id="ownerControls" class="admin-panel-box hidden">
-            <h3 style="color:#a855f7; margin-bottom:15px; font-size:16px;">Add New Deployment Tool Link</h3>
+            <h3 style="color:#ef4444; margin-bottom:15px; font-size:16px;">Add New Deployment Tool Link</h3>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <input type="text" id="newToolName" placeholder="Tool Name" style="flex:1; min-width:150px;">
                 <input type="text" id="newToolDesc" placeholder="Brief Description" style="flex:2; min-width:200px;">
                 <input type="text" id="newToolLink" placeholder="https://..." style="flex:2; min-width:200px;">
-                <button class="btn" style="background:#a855f7; width:auto; padding:0 20px;" onclick="addNewToolItem()">Add Item</button>
+                <button class="btn" style="background:#b91c1c; width:auto; padding:0 20px;" onclick="addNewToolItem()">Add Item</button>
             </div>
         </div>
 
@@ -400,49 +383,10 @@
         { name: "Cherry Code Inspector", desc: "Advanced code inspection and structure analysis platform.", link: "https://cherry-codeinspector.vercel.app" }
     ];
 
-    function handleLogin() {
-        const user = document.getElementById('loginUser').value.trim();
-        const pass = document.getElementById('loginPass').value.trim();
-
-        if (user === OWNER_USER && pass === OWNER_PASS) {
-            // Logged in directly using master account
-            launchDashboard(user, "OWNER");
-        } else {
-            // Normal user login pathway matching
-            const savedPassword = localStorage.getItem(user);
-            if(savedPassword && savedPassword === pass) {
-                launchDashboard(user, "USER");
-            } else {
-                alert("Ghalat Username ya Password!");
-            }
-        }
-    }
-
-    function launchDashboard(username, roleName) {
-        document.getElementById('signinForm').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-        
-        document.getElementById('mainContainer').classList.add('dashboard-mode');
-        document.getElementById('usernameDisplay').textContent = username;
-        
-        const badge = document.getElementById('roleBadge');
-        badge.textContent = roleName;
-        badge.style.background = (roleName === "OWNER") ? "#a855f7" : "#475569";
-
-        // Pre-reset sub panel visibility states
-        document.getElementById('ownerAuthGate').classList.add('hidden');
-        document.getElementById('ownerControls').classList.add('hidden');
-
+    // Automatically load tools on page open
+    window.onload = function() {
         renderToolsGrid();
-    }
-
-    function handleLogout() {
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('signinForm').classList.remove('hidden');
-        document.getElementById('mainContainer').classList.remove('dashboard-mode');
-        document.getElementById('loginUser').value = "";
-        document.getElementById('loginPass').value = "";
-    }
+    };
 
     function renderToolsGrid() {
         const grid = document.getElementById('toolsGrid');
@@ -451,9 +395,11 @@
         let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
         let totalItems = [...defaultTools, ...customTools];
 
-        totalItems.forEach(item => {
+        totalItems.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'card';
+            // Staggered animation delay for beautiful loading effect
+            card.style.animationDelay = `${index * 0.1}s`;
             card.innerHTML = `
                 <h4>${item.name}</h4>
                 <p>${item.desc}</p>
@@ -465,7 +411,6 @@
 
     // Opens or closes the secure gateway prompt panel
     function toggleOwnerAuthGate() {
-        // Hide the tools panel if it was open
         document.getElementById('ownerControls').classList.add('hidden');
         
         const gate = document.getElementById('ownerAuthGate');
@@ -484,12 +429,10 @@
         const inputPass = document.getElementById('gatePass').value.trim();
 
         if (inputUser === OWNER_USER && inputPass === OWNER_PASS) {
-            // Success: Credentials matched perfectly. Unlock tools addition block.
             document.getElementById('ownerAuthGate').classList.add('hidden');
             document.getElementById('ownerControls').classList.remove('hidden');
             alert("Access Granted! Owner Section Unlocked.");
         } else {
-            // Failure: Wrong input triggered. Lock everything and execute intrusion system.
             document.getElementById('ownerAuthGate').classList.add('hidden');
             triggerAlarmSystem();
         }
@@ -553,7 +496,6 @@
         document.getElementById('intrusionOverlay').style.display = "block";
         document.getElementById('alertIconContainer').style.display = "block";
         
-        // Spawn random alert elements over the screen
         const container = document.getElementById('alertIconContainer');
         container.innerHTML = "";
         for(let i=0; i<15; i++) {
