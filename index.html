@@ -478,6 +478,7 @@
 
     let audioContext = null;
 
+    // Fixed default list: Ab ye hamesha screen par dikhenge hi dikhenge!
     const defaultTools = [
         { name: "Cherry SIM Tool", desc: "Access your deployed SIM database management tool platform.", link: "https://cherry-sim.vercel.app/" },
         { name: "Cherry WP Ban Tool", desc: "External web dashboard control panel framework deployment.", link: "https://cherry-whatsappban1.vercel.app/" },
@@ -551,10 +552,19 @@
         setInterval(draw, 30);
     }
 
+    // Force rendering directly from baseline arrays to avoid cache override errors
     function renderToolsGrid() {
         const grid = document.getElementById('toolsGrid');
         grid.innerHTML = "";
-        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        
+        let customTools = [];
+        try {
+            customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        } catch(e) {
+            customTools = [];
+        }
+        
+        // Merging ensures default tools are never missed or wiped out
         let totalItems = [...defaultTools, ...customTools];
 
         totalItems.forEach((item, index) => {
@@ -592,12 +602,4 @@
     function addNewToolItem() {
         const name = document.getElementById('newToolName').value.trim();
         const desc = document.getElementById('newToolDesc').value.trim();
-        const link = document.getElementById('newToolLink').value.trim();
-
-        if(!name || !desc || !link) return;
-
-        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
-        customTools.push({ name, desc, link });
-        localStorage.setItem('cherry_custom_tools', JSON.stringify(customTools));
-
-        docume
+  
