@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #020617; 
+            background-color: #ffffff; 
             color: #0f172a;
             display: flex;
             justify-content: center;
@@ -32,65 +32,7 @@
             width: 100vw;
             height: 100vh;
             z-index: 1;
-            display: none;
             pointer-events: none;
-        }
-
-        /* HARD & SECURE LOCK SCREEN */
-        #pinLockScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #020617;
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: radial-gradient(circle at center, #081a36 0%, #010409 100%);
-        }
-
-        .lock-container {
-            width: 100%;
-            max-width: 380px;
-            background: #0b1329;
-            border: 2px solid #38bdf8; 
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            animation: bootUp 0.6s ease-out;
-        }
-
-        .lock-container h2 {
-            color: #38bdf8;
-            font-size: 22px;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
-        }
-
-        .lock-subtitle {
-            color: #64748b;
-            font-size: 12px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .pin-input {
-            width: 100%;
-            padding: 15px;
-            background: #020617;
-            border: 1px solid #38bdf8;
-            color: #38bdf8;
-            font-size: 24px;
-            text-align: center;
-            letter-spacing: 10px;
-            border-radius: 4px;
-            outline: none;
-            margin-bottom: 20px;
-            font-weight: bold;
         }
 
         /* MAIN DASHBOARD CONTAINER (Soft Elegant Feel on Pure White Glow) */
@@ -372,11 +314,6 @@
         }
 
         /* ANIMATIONS */
-        @keyframes bootUp {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         @keyframes fadeInContainer {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -398,24 +335,13 @@
 <!-- Matrix Code Rain Canvas -->
 <canvas id="matrixCanvas"></canvas>
 
-<!-- PIN LOCK OVERLAY SCREEN -->
-<div id="pinLockScreen" onclick="event.stopPropagation();">
-    <div class="lock-container">
-        <h2>SECURITY TERMINAL</h2>
-        <div class="lock-subtitle">Access Restricted</div>
-        <!-- Input optimized with direct value tracker -->
-        <input type="text" id="pinInput" class="pin-input" placeholder="••••" maxlength="3" autofocus oninput="checkPinCode()">
-        <button class="btn" style="background:#0284c7;" onclick="verifyForcedPin()">UNLOCK PLATFORM</button>
-    </div>
-</div>
-
 <!-- Glowing Alert Box -->
 <div class="glowing-popup" id="glowingPopup">
     <div class="glowing-text">ALERT: unauthorized bypass attempt detected</div>
     <button class="btn" style="background: #ff0055;" onclick="closeAlarmSystem()">DISMISS SYSTEM ALERT</button>
 </div>
 
-<div class="container hidden" id="mainContainer" onclick="event.stopPropagation();">
+<div class="container" id="mainContainer" onclick="event.stopPropagation();">
     
     <div id="dashboard">
         <div class="dash-header">
@@ -469,8 +395,6 @@
 </div>
 
 <script>
-    // System Master Configuration PIN
-    const FIXED_PIN = "804";
     const OWNER_USER = "cherry6163";
     const OWNER_PASS = "@Iqra77055";
 
@@ -485,12 +409,10 @@
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
-        document.body.addEventListener('click', initVoiceCommand, { once: true });
+        // Direct Initialization without locks
+        startMatrixAnimation();
+        renderToolsGrid();
     });
-
-    function initVoiceCommand() {
-        triggerVoice("Enter the password for access", 1.2, 0.9);
-    }
 
     // MECHANICAL COMPUTER BEEP SOUND GENERATOR
     function playBeepSound() {
@@ -511,60 +433,6 @@
             osc.start();
             osc.stop(audioContext.currentTime + 0.08);
         } catch(e) {}
-    }
-
-    function triggerVoice(textMsg, pitchVal = 1.0, rateVal = 1.0) {
-        try {
-            window.speechSynthesis.cancel();
-            const speech = new SpeechSynthesisUtterance(textMsg);
-            const voices = window.speechSynthesis.getVoices();
-            const femaleVoice = voices.find(v => v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('google uk english female'));
-            if (femaleVoice) speech.voice = femaleVoice;
-            speech.lang = 'en-US';
-            speech.pitch = pitchVal;
-            speech.rate = rateVal;
-            window.speechSynthesis.speak(speech);
-        } catch (e) {}
-    }
-
-    // Automatic check on typing sequence
-    function checkPinCode() {
-        const inputField = document.getElementById('pinInput');
-        const inputVal = inputField.value.trim();
-        
-        if (inputVal === FIXED_PIN) {
-            unlockDashboard();
-        } else if (inputVal.length >= 3) {
-            triggerVoice("You are not an authorized person, I can't give you permission to enter", 1.3, 0.9);
-            alert("ACCESS DENIED: Invalid System PIN!");
-            inputField.value = "";
-        }
-    }
-
-    // Manual backup button handler
-    function verifyForcedPin() {
-        const inputField = document.getElementById('pinInput');
-        const inputVal = inputField.value.trim();
-        
-        if (inputVal === FIXED_PIN) {
-            unlockDashboard();
-        } else {
-            triggerVoice("You are not an authorized person, I can't give you permission to enter", 1.3, 0.9);
-            alert("ACCESS DENIED: Invalid System PIN!");
-            inputField.value = "";
-        }
-    }
-
-    function unlockDashboard() {
-        document.getElementById('pinLockScreen').style.display = "none";
-        document.getElementById('mainContainer').classList.remove('hidden');
-        
-        // Background theme switch over white
-        document.body.style.backgroundColor = "#ffffff";
-        document.getElementById('matrixCanvas').style.display = "block";
-        startMatrixAnimation();
-        
-        renderToolsGrid();
     }
 
     function toggleDeveloperInfo() {
