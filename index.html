@@ -403,8 +403,9 @@
     <div class="lock-container">
         <h2>SECURITY TERMINAL</h2>
         <div class="lock-subtitle">Access Restricted</div>
-        <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="6" autofocus oninput="checkPinCode()">
-        <button class="btn" style="background:#0284c7;" onclick="checkPinCode(true)">UNLOCK PLATFORM</button>
+        <!-- Input optimized with direct value tracker -->
+        <input type="text" id="pinInput" class="pin-input" placeholder="••••" maxlength="3" autofocus oninput="checkPinCode()">
+        <button class="btn" style="background:#0284c7;" onclick="verifyForcedPin()">UNLOCK PLATFORM</button>
     </div>
 </div>
 
@@ -468,6 +469,7 @@
 </div>
 
 <script>
+    // System Master Configuration PIN
     const FIXED_PIN = "804";
     const OWNER_USER = "cherry6163";
     const OWNER_PASS = "@Iqra77055";
@@ -500,7 +502,7 @@
             const gain = audioContext.createGain();
             
             osc.type = "sine";
-            osc.frequency.setValueAtTime(600, audioContext.currentTime); // Perfect short tech beep
+            osc.frequency.setValueAtTime(600, audioContext.currentTime); 
             gain.gain.setValueAtTime(0.08, audioContext.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.08);
             
@@ -525,39 +527,52 @@
         } catch (e) {}
     }
 
-    function checkPinCode(forced = false) {
-        const inputVal = document.getElementById('pinInput').value;
+    // Automatic check on typing sequence
+    function checkPinCode() {
+        const inputField = document.getElementById('pinInput');
+        const inputVal = inputField.value.trim();
         
         if (inputVal === FIXED_PIN) {
-            document.getElementById('pinLockScreen').style.display = "none";
-            document.getElementById('mainContainer').classList.remove('hidden');
-            
-            // Activate Matrix Animation Background & change body color layout
-            document.body.style.backgroundColor = "#ffffff";
-            document.getElementById('matrixCanvas').style.display = "block";
-            startMatrixAnimation();
-            
-            renderToolsGrid();
-        } else if (forced || inputVal.length >= FIXED_PIN.length) {
-            if(inputVal !== FIXED_PIN){
-                triggerVoice("You are not an authorized person, I can't give you permission to enter", 1.3, 0.9);
-                alert("ACCESS DENIED: Invalid System PIN!");
-                document.getElementById('pinInput').value = "";
-            }
+            unlockDashboard();
+        } else if (inputVal.length >= 3) {
+            triggerVoice("You are not an authorized person, I can't give you permission to enter", 1.3, 0.9);
+            alert("ACCESS DENIED: Invalid System PIN!");
+            inputField.value = "";
         }
     }
 
-    // TOGGLE DEVELOPER INFO VISIBILITY
+    // Manual backup button handler
+    function verifyForcedPin() {
+        const inputField = document.getElementById('pinInput');
+        const inputVal = inputField.value.trim();
+        
+        if (inputVal === FIXED_PIN) {
+            unlockDashboard();
+        } else {
+            triggerVoice("You are not an authorized person, I can't give you permission to enter", 1.3, 0.9);
+            alert("ACCESS DENIED: Invalid System PIN!");
+            inputField.value = "";
+        }
+    }
+
+    function unlockDashboard() {
+        document.getElementById('pinLockScreen').style.display = "none";
+        document.getElementById('mainContainer').classList.remove('hidden');
+        
+        // Background theme switch over white
+        document.body.style.backgroundColor = "#ffffff";
+        document.getElementById('matrixCanvas').style.display = "block";
+        startMatrixAnimation();
+        
+        renderToolsGrid();
+    }
+
     function toggleDeveloperInfo() {
         const devSection = document.getElementById('developerDetails');
-        if (devSection.classList.contains('hidden')) {
-            devSection.classList.remove('hidden');
-        } else {
-            devSection.classList.add('hidden');
-        }
+        devSection.classList.toggle('hidden');
     }
 
-    // MATRIX DIGITAL RAIN ANIMATION (Sky Blue Theme over White background)
+    // MATRIX DIGITAL RAIN ANIMATION (Sky Blue Code on White Background)
     function startMatrixAnimation() {
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -575,11 +590,10 @@
         }
 
         function draw() {
-            // Semi-transparent overlay to clear trailing letters softly
             ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = 'rgba(2, 132, 199, 0.15)'; // Highly transparent beautiful sky blue drops
+            ctx.fillStyle = 'rgba(2, 132, 199, 0.15)'; 
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < rainDrops.length; i++) {
@@ -590,4 +604,73 @@
                     rainDrops[i] = 0;
                 }
                 rainDrops[i]++;
-    
+            }
+        }
+        setInterval(draw, 30);
+    }
+
+    function renderToolsGrid() {
+        const grid = document.getElementById('toolsGrid');
+        grid.innerHTML = "";
+        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        let totalItems = [...defaultTools, ...customTools];
+
+        totalItems.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.animationDelay = `${index * 0.08}s`;
+            card.innerHTML = `
+                <h4>${item.name}</h4>
+                <p>${item.desc}</p>
+                <a href="${item.link}" target="_blank">Launch Tool</a>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function toggleOwnerAuthGate() {
+        document.getElementById('ownerControls').classList.add('hidden');
+        const gate = document.getElementById('ownerAuthGate');
+        gate.classList.toggle('hidden');
+    }
+
+    function verifyOwnerGateCredentials() {
+        const inputUser = document.getElementById('gateUser').value.trim();
+        const inputPass = document.getElementById('gatePass').value.trim();
+
+        if (inputUser === OWNER_USER && inputPass === OWNER_PASS) {
+            document.getElementById('ownerAuthGate').classList.add('hidden');
+            document.getElementById('ownerControls').classList.remove('hidden');
+        } else {
+            document.getElementById('ownerAuthGate').classList.add('hidden');
+            triggerAlarmSystem();
+        }
+    }
+
+    function addNewToolItem() {
+        const name = document.getElementById('newToolName').value.trim();
+        const desc = document.getElementById('newToolDesc').value.trim();
+        const link = document.getElementById('newToolLink').value.trim();
+
+        if(!name || !desc || !link) return;
+
+        let customTools = JSON.parse(localStorage.getItem('cherry_custom_tools')) || [];
+        customTools.push({ name, desc, link });
+        localStorage.setItem('cherry_custom_tools', JSON.stringify(customTools));
+
+        document.getElementById('newToolName').value = "";
+        document.getElementById('newToolDesc').value = "";
+        document.getElementById('newToolLink').value = "";
+        renderToolsGrid();
+    }
+
+    function triggerAlarmSystem() {
+        document.getElementById('glowingPopup').style.display = "block";
+    }
+
+    function closeAlarmSystem() {
+        document.getElementById('glowingPopup').style.display = "none";
+    }
+</script>
+</body>
+</html>
